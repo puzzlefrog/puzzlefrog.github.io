@@ -439,6 +439,27 @@ strong { font-weight: 680; }
 .form-status:empty { display: none; }
 .form-status { margin: 1rem 0 0; padding: 0.75rem 1rem; border-left: 3px solid var(--olive); background: var(--paper); }
 
+/* Tick boxes and single-choice buttons (talent register) */
+.choices { min-width: 0; margin: 0 0 1.4rem; padding: 0; border: 0; }
+.choices legend { margin-bottom: 0.5rem; padding: 0; font-weight: 650; }
+.choices legend .opt { font-weight: 400; color: var(--muted); }
+.choice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 0.5rem 0.75rem; }
+.choice { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.6rem 0.8rem; border: 1.5px solid var(--line); border-radius: 8px; background: var(--paper); line-height: 1.4; cursor: pointer; }
+.choice input { flex: none; width: 1.15rem; height: 1.15rem; margin: 0.1rem 0 0; accent-color: var(--moss); cursor: pointer; }
+.choice:hover { border-color: #8a94a0; }
+.choice:has(input:checked) { border-color: var(--moss); background: var(--olive-pale); }
+.choice:has(input:disabled) { opacity: 0.5; cursor: not-allowed; }
+.choice:has(input:disabled) input { cursor: not-allowed; }
+.consent { margin: 0.25rem 0 1.5rem; }
+.consent .choice { border-color: #8a94a0; font-weight: 600; }
+.hp { display: none; }
+
+/* Talent register page */
+.register { max-width: 50rem; }
+.register-done { border-left: 4px solid var(--olive); }
+.register-done p { margin: 0; font-size: 1.2rem; font-weight: 650; }
+.register-done:focus { outline: none; }
+
 /* ---------- Call to action band ---------- */
 .cta-band { position: relative; overflow: hidden; background: var(--navy-900); border-top: 1px solid var(--navy-800); }
 .cta-band::after {

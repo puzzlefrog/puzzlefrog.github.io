@@ -60,4 +60,70 @@
       window.location.href = href;
     });
   }
+
+  /* Talent register: sends the answers to PuzzleFrog by email through Web3Forms, then shows
+     the thank-you message. Without this script the form still posts straight to Web3Forms. */
+  var register = doc.getElementById("register-form");
+  if (register) {
+    var regStatus = doc.getElementById("register-status");
+    var done = doc.getElementById("register-done");
+    var mainRole = register.elements.namedItem("main_role");
+    var otherRoles = register.querySelectorAll('input[name="other_roles"]');
+    var emailUs = "email your details to info@puzzlefrog.com.au.";
+
+    /* Don't offer someone's main role again under "Other roles you could do". */
+    var syncOtherRoles = function () {
+      otherRoles.forEach(function (box) {
+        var same = box.value === mainRole.value;
+        box.disabled = same;
+        if (same) { box.checked = false; }
+      });
+    };
+    if (mainRole) {
+      mainRole.addEventListener("change", syncOtherRoles);
+      syncOtherRoles();
+    }
+
+    register.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var button = register.querySelector('button[type="submit"]');
+      var say = function (text) { regStatus.textContent = text; };
+
+      /* Collect the answers. Several ticked roles are joined into one line. */
+      var data = {};
+      new FormData(register).forEach(function (value, key) {
+        data[key] = data[key] ? data[key] + ", " + value : value;
+      });
+      if (data.botcheck) { return; } /* hidden spam trap: people never tick it */
+      if (!data.access_key) {
+        say("Sorry, this form isn’t switched on yet. Please " + emailUs);
+        return;
+      }
+      data.subject = "Talent register: " + data.name;
+      data.replyto = data.email;
+      if (!data.other_roles) { data.other_roles = "None"; }
+
+      button.disabled = true;
+      say("Sending…");
+      fetch(register.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (response) {
+          return response.json().then(function (json) {
+            if (!response.ok || json.success === false) { throw new Error(json.message || "Not sent"); }
+          });
+        })
+        .then(function () {
+          register.hidden = true;
+          done.hidden = false;
+          done.focus();
+        })
+        .catch(function () {
+          button.disabled = false;
+          say("Sorry, your details didn’t send. Please try again, or " + emailUs);
+        });
+    });
+  }
 })();
