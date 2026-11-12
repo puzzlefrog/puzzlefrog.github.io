@@ -387,6 +387,8 @@ strong { font-weight: 680; }
 .table th, .table td { padding: 0.85rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
 .table thead th { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--ink); }
 .table tbody th { font-weight: 680; }
+.held { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 650; color: var(--moss); }
+.held svg { width: 1.15rem; height: 1.15rem; flex: none; }
 @media (max-width: 40em) {
   .table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .table tr { display: block; padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
@@ -456,9 +458,9 @@ strong { font-weight: 680; }
 
 /* Talent register page */
 .register { max-width: 50rem; }
-.register-done { border-left: 4px solid var(--olive); }
-.register-done p { margin: 0; font-size: 1.2rem; font-weight: 650; }
-.register-done:focus { outline: none; }
+.register-done, .form-done { border-left: 4px solid var(--olive); }
+.register-done p, .form-done p { margin: 0; font-size: 1.2rem; font-weight: 650; }
+.register-done:focus, .form-done:focus { outline: none; }
 
 /* ---------- Call to action band ---------- */
 .cta-band { position: relative; overflow: hidden; background: var(--navy-900); border-top: 1px solid var(--navy-800); }
