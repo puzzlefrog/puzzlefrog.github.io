@@ -69,7 +69,7 @@
     var done = doc.getElementById("register-done");
     var mainRole = register.elements.namedItem("main_role");
     var otherRoles = register.querySelectorAll('input[name="other_roles"]');
-    var emailUs = "email your details to info@puzzlefrog.com.au.";
+    var emailUs = "email your details to careers@puzzlefrog.com.au.";
 
     /* Don't offer someone's main role again under "Other roles you could do". */
     var syncOtherRoles = function () {
