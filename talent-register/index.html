@@ -84,12 +84,13 @@
       </div>
     </div>
 
-    <section class="section reg-section">
-      <div class="wrap">
+    <section class="section">
+      <div class="wrap register">
         <!-- Answers go to PuzzleFrog by email through Web3Forms (https://web3forms.com).
              site.js sends them in the background and shows the thank-you message below.
              Without JavaScript the form still sends, and Web3Forms shows its own thank-you page. -->
-        <form class="reg reg-card" id="register-form" action="https://api.web3forms.com/submit" method="post" aria-label="Talent register">
+        <form class="form" id="register-form" action="https://api.web3forms.com/submit" method="post" aria-labelledby="register-title">
+          <h2 id="register-title">Your details</h2>
           <input type="hidden" name="access_key" value="224b5e64-10ad-4586-81a8-fd1cb3baf271">
           <input type="hidden" name="subject" value="New talent register entry">
           <input type="hidden" name="from_name" value="PuzzleFrog talent register">
@@ -97,114 +98,83 @@
             <label>Leave this box unticked <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label>
           </div>
 
-          <div class="reg-steps">
-            <div class="reg-step" role="group" aria-labelledby="q-you">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">01</span>
-                <p class="reg-q" id="q-you">About you</p>
-              </div>
-              <div class="reg-pair">
-                <div class="reg-field">
-                  <label for="r-name">Name</label>
-                  <input id="r-name" name="name" type="text" autocomplete="name" required>
-                </div>
-                <div class="reg-field">
-                  <label for="r-email">Email</label>
-                  <input id="r-email" name="email" type="email" autocomplete="email" required>
-                </div>
-              </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="r-name">Name</label>
+              <input id="r-name" name="name" type="text" autocomplete="name" required>
             </div>
-
-            <div class="reg-step">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">02</span>
-                <label class="reg-q" for="r-main">Main role</label>
-              </div>
-              <div>
-                <select id="r-main" name="main_role" required>
-                  <option value="">Choose your main role</option>
-                  <option>Business analyst</option>
-                  <option>Project or program manager</option>
-                  <option>Product owner</option>
-                  <option>Delivery manager</option>
-                  <option>Developer or engineer</option>
-                  <option>Tester</option>
-                  <option>Architect</option>
-                  <option>Data or BI</option>
-                  <option>Cloud or infrastructure</option>
-                  <option>DevOps engineer</option>
-                  <option>Cyber security</option>
-                  <option>UX or service designer</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="reg-step" role="group" aria-labelledby="q-other">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">03</span>
-                <p class="reg-q" id="q-other">Other roles you could do</p>
-                <p class="reg-help">Optional. Tick any that apply.</p>
-              </div>
-              <div class="reg-chips">
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Business analyst"><span>Business analyst</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Project or program manager"><span>Project or program manager</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Product owner"><span>Product owner</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Delivery manager"><span>Delivery manager</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Developer or engineer"><span>Developer or engineer</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Tester"><span>Tester</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Architect"><span>Architect</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Data or BI"><span>Data or BI</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Cloud or infrastructure"><span>Cloud or infrastructure</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="DevOps engineer"><span>DevOps engineer</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="Cyber security"><span>Cyber security</span></label>
-                <label class="reg-chip"><input type="checkbox" name="other_roles" value="UX or service designer"><span>UX or service designer</span></label>
-              </div>
-            </div>
-
-            <div class="reg-step" role="radiogroup" aria-labelledby="q-seniority">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">04</span>
-                <p class="reg-q" id="q-seniority">Seniority in your main role</p>
-              </div>
-              <div class="reg-options reg-options-4">
-                <label class="reg-option"><input type="radio" name="seniority" value="Junior (0–3 years)" required><span class="reg-option-text">Junior <small>0–3 years</small></span></label>
-                <label class="reg-option"><input type="radio" name="seniority" value="Mid (3–7)"><span class="reg-option-text">Mid <small>3–7 years</small></span></label>
-                <label class="reg-option"><input type="radio" name="seniority" value="Senior (7–12)"><span class="reg-option-text">Senior <small>7–12 years</small></span></label>
-                <label class="reg-option"><input type="radio" name="seniority" value="Lead (12+)"><span class="reg-option-text">Lead <small>12+ years</small></span></label>
-              </div>
-            </div>
-
-            <div class="reg-step" role="radiogroup" aria-labelledby="q-gov">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">05</span>
-                <p class="reg-q" id="q-gov">Would you consider a government role through PuzzleFrog?</p>
-              </div>
-              <div class="reg-options">
-                <label class="reg-option"><input type="radio" name="government_role" value="Yes, now" required><span class="reg-option-text">Yes, now</span></label>
-                <label class="reg-option"><input type="radio" name="government_role" value="Yes, in the future"><span class="reg-option-text">Yes, in the future</span></label>
-                <label class="reg-option"><input type="radio" name="government_role" value="Not at the moment"><span class="reg-option-text">Not at the moment</span></label>
-              </div>
-            </div>
-
-            <div class="reg-step" role="group" aria-labelledby="q-consent">
-              <div class="reg-head">
-                <span class="reg-num" aria-hidden="true">06</span>
-                <p class="reg-q" id="q-consent">Consent</p>
-              </div>
-              <div>
-                <label class="reg-consent"><input type="checkbox" name="consent" value="Yes" required><span>I agree to PuzzleFrog keeping these details and counting me, without naming me, in totals in panel applications.</span></label>
-                <div class="reg-actions">
-                  <button class="btn btn-primary" type="submit">Join the register <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-                  <p class="form-note">Your answers are emailed to PuzzleFrog through Web3Forms, a form service. See our <a href="/privacy/#website">privacy policy</a>.</p>
-                </div>
-                <p class="form-status" id="register-status" role="status" aria-live="polite"></p>
-              </div>
+            <div class="field">
+              <label for="r-email">Email</label>
+              <input id="r-email" name="email" type="email" autocomplete="email" required>
             </div>
           </div>
+
+          <div class="field">
+            <label for="r-main">Main role</label>
+            <select id="r-main" name="main_role" required>
+              <option value="">Choose one</option>
+              <option>Business analyst</option>
+              <option>Project or program manager</option>
+              <option>Product owner</option>
+              <option>Delivery manager</option>
+              <option>Developer or engineer</option>
+              <option>Tester</option>
+              <option>Architect</option>
+              <option>Data or BI</option>
+              <option>Cloud or infrastructure</option>
+              <option>DevOps engineer</option>
+              <option>Cyber security</option>
+              <option>UX or service designer</option>
+            </select>
+          </div>
+
+          <fieldset class="choices">
+            <legend>Other roles you could do <span class="opt">(optional)</span></legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="checkbox" name="other_roles" value="Business analyst"> Business analyst</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Project or program manager"> Project or program manager</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Product owner"> Product owner</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Delivery manager"> Delivery manager</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Developer or engineer"> Developer or engineer</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Tester"> Tester</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Architect"> Architect</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Data or BI"> Data or BI</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Cloud or infrastructure"> Cloud or infrastructure</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="DevOps engineer"> DevOps engineer</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="Cyber security"> Cyber security</label>
+              <label class="choice"><input type="checkbox" name="other_roles" value="UX or service designer"> UX or service designer</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choices">
+            <legend>Seniority in your main role</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="seniority" value="Junior (0–3 years)" required> Junior (0–3 years)</label>
+              <label class="choice"><input type="radio" name="seniority" value="Mid (3–7)"> Mid (3–7)</label>
+              <label class="choice"><input type="radio" name="seniority" value="Senior (7–12)"> Senior (7–12)</label>
+              <label class="choice"><input type="radio" name="seniority" value="Lead (12+)"> Lead (12+)</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choices">
+            <legend>Would you consider a government role through PuzzleFrog?</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="government_role" value="Yes, now" required> Yes, now</label>
+              <label class="choice"><input type="radio" name="government_role" value="Yes, in the future"> Yes, in the future</label>
+              <label class="choice"><input type="radio" name="government_role" value="Not at the moment"> Not at the moment</label>
+            </div>
+          </fieldset>
+
+          <div class="consent">
+            <label class="choice"><input type="checkbox" name="consent" value="Yes" required> I agree to PuzzleFrog keeping these details and counting me, without naming me, in totals in panel applications.</label>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Join the register <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="form-note">Your answers are emailed to PuzzleFrog through Web3Forms, a form service. See our <a href="/privacy/#website">privacy policy</a>.</p>
+          <p class="form-status" id="register-status" role="status" aria-live="polite"></p>
         </form>
 
-        <div class="reg-done" id="register-done" tabindex="-1" hidden>
-          <span class="reg-done-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <div class="form register-done" id="register-done" tabindex="-1" hidden>
           <p>Thanks, you’re on the register. I’ll be in touch before putting you forward for anything.</p>
         </div>
       </div>
