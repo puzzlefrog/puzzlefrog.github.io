@@ -26,38 +26,57 @@
   var year = String(new Date().getFullYear());
   doc.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = year; });
 
-  /* Contact form: opens the visitor's own email app with the message filled in.
-     Nothing is sent to or stored by this website or any third-party form service. */
+  /* Contact form: sends the enquiry to PuzzleFrog by email through Web3Forms, then shows
+     the thank-you message. Without this script the form still posts straight to Web3Forms. */
   var form = doc.getElementById("enquiry-form");
   if (form) {
     var status = doc.getElementById("form-status");
+    var sent = doc.getElementById("enquiry-done");
     var typeField = form.elements.namedItem("type");
     var preset = new URLSearchParams(window.location.search).get("type");
     var presets = { candidate: "Request a candidate", consulting: "Consulting", talent: "Join the talent pool", other: "Something else" };
     if (preset && presets[preset] && typeField) { typeField.value = presets[preset]; }
+    var emailInstead = "email us at info@puzzlefrog.com.au.";
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      var value = function (name) {
-        var field = form.elements.namedItem(name);
-        return field ? String(field.value).trim() : "";
-      };
-      var type = value("type");
-      var name = value("name");
-      var org = value("organisation");
-      var lines = ["Enquiry type: " + type, "Name: " + name, "Email: " + value("email")];
-      if (value("phone")) { lines.push("Phone: " + value("phone")); }
-      if (org) { lines.push("Organisation: " + org); }
-      lines.push("", value("message"));
+      var button = form.querySelector('button[type="submit"]');
+      var say = function (text) { status.textContent = text; };
 
-      var subject = type + " (" + name + (org ? ", " + org : "") + ")";
-      var to = form.getAttribute("data-to");
-      var href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\r\n"));
-
-      if (status) {
-        status.textContent = "Your email app should now open with your message ready to send. If it doesn't, email us at " + to + ".";
+      /* Collect the answers, leaving out optional boxes that were left empty. */
+      var data = {};
+      new FormData(form).forEach(function (value, key) {
+        if (String(value).trim()) { data[key] = String(value).trim(); }
+      });
+      if (data.botcheck) { return; } /* hidden spam trap: people never tick it */
+      if (!data.access_key) {
+        say("Sorry, this form isn’t working right now. Please " + emailInstead);
+        return;
       }
-      window.location.href = href;
+      data.subject = data.type + ": " + data.name + (data.organisation ? " (" + data.organisation + ")" : "");
+      data.replyto = data.email;
+
+      button.disabled = true;
+      say("Sending…");
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (response) {
+          return response.json().then(function (json) {
+            if (!response.ok || json.success === false) { throw new Error(json.message || "Not sent"); }
+          });
+        })
+        .then(function () {
+          form.hidden = true;
+          sent.hidden = false;
+          sent.focus();
+        })
+        .catch(function () {
+          button.disabled = false;
+          say("Sorry, your message didn’t send. Please try again, or " + emailInstead);
+        });
     });
   }
 
